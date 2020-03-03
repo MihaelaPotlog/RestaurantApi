@@ -1,0 +1,93 @@
+{
+  "Ingredients": [
+    {
+      "Name": "Salt",
+      "Quantity": 277.5
+    },
+    {
+      "Name": "Sugar",
+      "Quantity": 188.3
+    },
+    {
+      "Name": "Pepper",
+      "Quantity": 500.9
+    },
+    {
+      "Name": "Chicken Meat",
+      "Quantity": 550.0
+    },
+    {
+      "Name": "Penne Pasta",
+      "Quantity": 880.0
+    }
+  ],
+  "Dishes": [
+    {
+      "Name": "Chicken Pasta",
+      "Price": 29.5,
+      "UsedIngredients": [
+        {
+          "Name": "Chicken Meat",
+          "Quantity": 200.0
+        },
+        {
+          "Name": "Penne Pasta",
+          "Quantity": 300.0
+        }
+      ]
+    }
+  ],
+  "Suppliers": [
+    {
+      "FirstName": "Alexandru",
+      "LastName": "Popovici",
+      "Ingredients": [
+        {
+          "Name": "Pepper",
+          "Quantity": 500.9
+        },
+        {
+          "Name": "Salt",
+          "Quantity": 277.5
+        },
+        {
+          "Name": "Sugar",
+          "Quantity": 188.3
+        }
+      ]
+    },
+    {
+      "FirstName": "Marian",
+      "LastName": "Tarnauceanu",
+      "Ingredients": [
+        {
+          "Name": "Pepper",
+          "Quantity": 100.9
+        },
+        {
+          "Name": "Salt",
+          "Quantity": 77.2
+        },
+        {
+          "Name": "Sugar",
+          "Quantity": 588.3
+        },
+        {
+          "Name": "Penne Pasta",
+          "Quantity": 800.0
+        }
+      ]
+    }
+  ],
+  "Orders": [
+    {
+      "Name": "Penne Pasta",
+      "Date": "5/1/2020 8:30:52 AM"
+    },
+    {
+      "Name": "Penne Pasta",
+      "Date": "5/1/2019 8:30:52 AM"
+    }
+  ] 
+
+}
