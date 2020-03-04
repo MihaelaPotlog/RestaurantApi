@@ -12,6 +12,10 @@ namespace Domain
 
         public List<IngredientSupplier> SupplierIngredients { get; set; }
 
+        private Supplier()
+        {
+
+        }
         public Supplier(string firstname, string lastName)
         {
             Id = Guid.NewGuid();

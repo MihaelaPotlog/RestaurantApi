@@ -8,7 +8,8 @@ namespace Infrastructure.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Supplier> builder)
         {
-            builder.Property(supplier => supplier.Name).IsRequired();
+            builder.Property(supplier => supplier.FirstName).IsRequired();
+            builder.Property(supplier => supplier.LastName).IsRequired();
         }
     }
 }

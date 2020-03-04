@@ -27,7 +27,8 @@ namespace Domain
                 Name = name,
                 Price = price,
                 IsAvailable = isAvailable,
-                DishOrders = new List<OrderDish>()
+                DishOrders = new List<OrderDish>(),
+                Ingredients = new List<DishIngredient>()
             };
         }
 

@@ -13,5 +13,6 @@ namespace Domain
 
         public Dish Dish { get; set; }
         public IngredientOnStock Ingredient { get; set; }
+
     }
 }

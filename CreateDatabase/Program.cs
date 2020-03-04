@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
 using Infrastructure;
+using Infrastructure.DataSeeding;
+using Newtonsoft.Json;
 
 namespace CreateDatabase
 {
@@ -8,6 +11,7 @@ namespace CreateDatabase
         static void Main(string[] args)
         {
             var context =  new RestaurantContext();
+     
         }
     }
 }

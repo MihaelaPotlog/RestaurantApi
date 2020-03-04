@@ -1,7 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json.Serialization;
 using Domain;
+using Infrastructure.DataSeeding;
 using Infrastructure.EntitiesConfiguration;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 
 namespace Infrastructure
@@ -43,30 +49,31 @@ namespace Infrastructure
 
         private void Seed(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<IngredientOnStock>().HasData(
-                IngredientOnStock.Create("Turmeric", 24.7),
-                IngredientOnStock.Create("Salt", 100.0),
-                IngredientOnStock.Create("Chicken meat", 5000.0),
-                IngredientOnStock.Create("Eggs", 400.0),
-                IngredientOnStock.Create("Milk", 300.0),
-                IngredientOnStock.Create("Cheese", 200.0),
-                IngredientOnStock.Create("Red Beans", 389.0),
-                IngredientOnStock.Create("White Beans", 367.0),
-                IngredientOnStock.Create("Tomatoes", 178.5),
-                IngredientOnStock.Create("Broccoli", 98.5),
-                IngredientOnStock.Create("Soy Sauce", 100.0),
-                IngredientOnStock.Create("Cornstarch", 10.0),
-                IngredientOnStock.Create("Ginger", 20.0),
-                IngredientOnStock.Create("Onions", 147.7)
-            );
-           
-          
-            modelBuilder.Entity<Dish>().HasData(
-                Dish.Create("Chinese Pepper Steak",37.5, true),
-                Dish.Create("Chicken Pasta", 21.0, false)
 
-            );
-           
+            var seedingDataJson = File.ReadAllText("C:\\Users\\mihaela\\source\\repos\\Restaurant\\Infrastructure\\DataSeeding\\Data.json");
+            var des = JsonConvert.DeserializeObject<Data>(seedingDataJson);
+
+            List<IngredientOnStock> seededIngredients = new List<IngredientOnStock>();
+            foreach (var ingredient in des.IngredientsOnStock)
+            {
+                seededIngredients.Add(IngredientOnStock.Create(ingredient.Key, ingredient.Value));
+            }
+
+            modelBuilder.Entity<IngredientOnStock>().HasData(seededIngredients);
+
+            // List<Dish> seededDishes = new List<Dish>();
+            // foreach (var dish in des.Dishes)
+            // {
+            //     foreach (var usedIngredient in dish.UsedIngredients)
+            //     {
+            //         var usedIngredientOnStock = seededIngredients.Find(ingredient => ingredient.Name == usedIngredient.Key);
+            //         DishIngredient dishIngredientLink = new DishIngredient() {Ingredient = usedIngredientOnStock, Dish = dish};
+            //     }
+            //     
+            //     seededDishes.Add(Dish.Create(dish.Name,dish.Price, true, ));
+            // }
+            
         }
+
     }
 }

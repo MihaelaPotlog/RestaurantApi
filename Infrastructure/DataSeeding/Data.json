@@ -1,93 +1,73 @@
 {
-  "Ingredients": [
-    {
-      "Name": "Salt",
-      "Quantity": 277.5
-    },
-    {
-      "Name": "Sugar",
-      "Quantity": 188.3
-    },
-    {
-      "Name": "Pepper",
-      "Quantity": 500.9
-    },
-    {
-      "Name": "Chicken Meat",
-      "Quantity": 550.0
-    },
-    {
-      "Name": "Penne Pasta",
-      "Quantity": 880.0
-    }
-  ],
+  "IngredientsOnStock": {
+    "Salt": 277.5,
+    "Suggar": 188.3,
+    "Pepper": 500.9,
+    "Chicken Meat": 5500,
+    "Penne Pasta": 880.0,
+    "Olives": 87.5,
+    "Mozzarella": 265.8,
+    "Salami": 52.8,
+    "Flour": 487.7 
+  },
   "Dishes": [
     {
       "Name": "Chicken Pasta",
       "Price": 29.5,
-      "UsedIngredients": [
-        {
-          "Name": "Chicken Meat",
-          "Quantity": 200.0
-        },
-        {
-          "Name": "Penne Pasta",
-          "Quantity": 300.0
-        }
-      ]
+      "UsedIngredients": {
+        "Chicken Meat": 200.0,
+        "Penne Pasta": 300.0
+      }
+    },
+    {
+      "Name": "Pizza",
+      "Price": 27.5,
+      "UsedIngredients": {
+        "Mozzarella": 70,
+        "Olives": 30,
+        "Salami": 40.5,
+        "Flour": 78
+      } 
     }
   ],
   "Suppliers": [
     {
       "FirstName": "Alexandru",
       "LastName": "Popovici",
-      "Ingredients": [
-        {
-          "Name": "Pepper",
-          "Quantity": 500.9
-        },
-        {
-          "Name": "Salt",
-          "Quantity": 277.5
-        },
-        {
-          "Name": "Sugar",
-          "Quantity": 188.3
-        }
-      ]
+      "Ingredients": {
+
+        "Pepper": 500.9,
+
+        "Salt": 277.5,
+
+        "Sugar": 188.3
+
+      }
     },
     {
       "FirstName": "Marian",
       "LastName": "Tarnauceanu",
-      "Ingredients": [
-        {
-          "Name": "Pepper",
-          "Quantity": 100.9
-        },
-        {
-          "Name": "Salt",
-          "Quantity": 77.2
-        },
-        {
-          "Name": "Sugar",
-          "Quantity": 588.3
-        },
-        {
-          "Name": "Penne Pasta",
-          "Quantity": 800.0
-        }
-      ]
+      "Ingredients": {
+
+        "Pepper": 100.9,
+
+        "Salt": 77.2,
+
+        "Sugar": 588.3,
+
+        "Penne Pasta": 800.0
+      }
     }
   ],
   "Orders": [
     {
-      "Name": "Penne Pasta",
+      "Dishes": [ "Penne Pasta" ],
       "Date": "5/1/2020 8:30:52 AM"
     },
     {
-      "Name": "Penne Pasta",
+      "Dishes": [ "Penne Pasta" ],
       "Date": "5/1/2019 8:30:52 AM"
     }
-  ] 
+  ]
 
 }
