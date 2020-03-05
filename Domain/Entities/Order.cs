@@ -5,7 +5,7 @@ using Domain.Entities;
 
 namespace Domain
 {
-    public class Order
+    public class Order:IBaseEntity
     {
         public Guid Id { get; set; }
         public DateTime Date { get; set; }

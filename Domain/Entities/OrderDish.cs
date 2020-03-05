@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class OrderDish
+    public class OrderDish:IBaseEntity
     {
         public Guid DishId { get; set; }
         public Guid OrderId { get; set; }

@@ -10,21 +10,21 @@ namespace Infrastructure.NewFolder
         where T : class
         where TContext : DbContext
     {
-        private readonly TContext context;
+        protected readonly TContext _context;
 
         protected EfCoreRepository(TContext context)
         {
-            this.context = context;
+            this._context = context;
         }
         public async Task<bool> Delete(Guid id)
         {
-            T deletedEntity = await context.Set<T>().FindAsync(id);
+            T deletedEntity = await _context.Set<T>().FindAsync(id);
 
             if (deletedEntity == null)
                 return false;
             else
             {
-                context.Set<T>().Remove(deletedEntity);
+                _context.Set<T>().Remove(deletedEntity);
                 return true;
             }
 
@@ -32,18 +32,23 @@ namespace Infrastructure.NewFolder
 
         public async Task<T> Get(Guid id)
         {
-            return  await context.Set<T>().FindAsync(id);
+            return  await _context.Set<T>().FindAsync(id);
         }
 
         public Task<List<T>> GetAll()
         {
-            return context.Set<T>().ToListAsync();
+            return _context.Set<T>().ToListAsync();
         }
 
         public async  Task Update(T entity)
         {
-            context.Update(entity);
-            await context.SaveChangesAsync();
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+        }
+        public async Task Add(T entity)
+        {
+            _context.Set<T>().Add(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }

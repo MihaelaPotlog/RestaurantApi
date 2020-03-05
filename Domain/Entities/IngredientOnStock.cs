@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Text;
+using Domain.Entities;
 
 namespace Domain
 {
-    public class IngredientOnStock
+    public class IngredientOnStock:IBaseEntity
     {
         public Guid Id { get; private set; }
         public double Quantity { get; set; }

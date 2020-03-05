@@ -7,7 +7,7 @@ using Domain.Interfaces;
 
 namespace Service
 {
-    public class MenuService:IService
+    public class MenuService:IDishesService
     {
         private readonly IRepository<Dish> _dishes;
         private readonly IMapper _mapper;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain;
+using Domain.Entities;
 using Domain.Interfaces;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -31,10 +32,14 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddAutoMapper(typeof(IService));
+            services.AddAutoMapper(typeof(IDishesService));
 
-            services.AddScoped<IService, MenuService>();
+            //injectare pentru controllerele care au obiecte de tipul ISomethingService
+            services.AddScoped<IDishesService, MenuService>();
+            services.AddScoped<IIngredientsService, StockService>();
+
             services.AddScoped<IRepository<Dish>,EfCoreDishRepository>();
+            services.AddScoped<IRepository<IngredientOnStock>, EfCoreIngredientsRepository>();
 
         }
 

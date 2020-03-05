@@ -5,7 +5,7 @@ using Domain.Entities;
 
 namespace Domain
 {
-    public class Dish
+    public class Dish:IBaseEntity
     {
         public Guid Id { get; private set; }
         public string Name { get; set; }

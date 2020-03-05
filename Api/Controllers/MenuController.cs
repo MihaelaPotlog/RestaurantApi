@@ -12,11 +12,11 @@ namespace Api.Controllers
     [Route("[controller]")]
     public class MenuController : ControllerBase
     {
-        private readonly IService _menuService;
+        private readonly IDishesService _menuService;
 
         private readonly ILogger<MenuController> _logger;
 
-        public MenuController(ILogger<MenuController> logger, IService menuService)
+        public MenuController(ILogger<MenuController> logger, IDishesService menuService)
         {
             _logger = logger;
             _menuService = menuService;

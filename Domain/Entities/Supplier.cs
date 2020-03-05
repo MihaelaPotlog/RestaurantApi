@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.Entities;
 
 namespace Domain
 {
-    public class Supplier
+    public class Supplier:IBaseEntity
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

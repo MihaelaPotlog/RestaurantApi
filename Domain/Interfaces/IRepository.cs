@@ -9,7 +9,8 @@ namespace Domain.Interfaces
     {
         Task<List<T>> GetAll();
         Task<T> Get(Guid id);
-        Task Update(T entity);
+         static void Update(T entity);
+        Task Add(T entity);
         Task<bool> Delete(Guid id);
 
     }

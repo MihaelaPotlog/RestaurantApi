@@ -6,7 +6,7 @@ using Infrastructure.NewFolder;
 
 namespace Infrastructure
 {
-    public class EfCoreDishRepository:EfCoreRepository<Dish, RestaurantContext>
+    public sealed class EfCoreDishRepository:EfCoreRepository<Dish, RestaurantContext>
     {
         public EfCoreDishRepository(RestaurantContext context):base(context)
         {

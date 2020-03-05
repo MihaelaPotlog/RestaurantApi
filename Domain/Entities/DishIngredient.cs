@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Text;
+using Domain.Entities;
 
 namespace Domain
 {
-    public class DishIngredient
+    public class DishIngredient:IBaseEntity
     {
         public Guid DishId { get; set; }
         public Guid IngredientId { get; set; }
