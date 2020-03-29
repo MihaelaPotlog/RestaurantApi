@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using Infrastructure;
-using Infrastructure.DataSeeding;
-using Newtonsoft.Json;
+﻿using Infrastructure;
 
 namespace CreateDatabase
 {

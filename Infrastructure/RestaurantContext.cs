@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.Json.Serialization;
 using Domain;
 using Infrastructure.DataSeeding;
 using Infrastructure.EntitiesConfiguration;
@@ -21,15 +18,19 @@ namespace Infrastructure
         public DbSet<DishIngredient> DishIngredients { get; set; }
         public DbSet<IngredientSupplier> SupplierIngredients { get; set; }
 
-        public RestaurantContext()
+        public RestaurantContext(DbContextOptions<RestaurantContext> options):base(options)
+        {
+            
+        }
+        public RestaurantContext() 
         {
             Database.EnsureCreated();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=Restaurant;");
-        }
+         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+         {
+             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=Restaurant;");
+         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

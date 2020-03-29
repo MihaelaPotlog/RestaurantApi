@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Domain;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 using Service.DTOs;
@@ -42,10 +40,10 @@ namespace Api.Controllers
                 return NotFound();
         }
 
-        [HttpPost("ingredients")]
-        public async Task<ActionResult<string>> Add(IngredientDto addDto)
-        {
-
-        }
+        // [HttpPost("ingredients")]
+        // public async Task<ActionResult<string>> Add(IngredientDto addDto)
+        // {
+        //
+        // }
     }
 }

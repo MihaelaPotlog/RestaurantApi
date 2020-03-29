@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Domain;
+using Domain.Interfaces;
 using Infrastructure.NewFolder;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public sealed class EfCoreIngredientsRepository: EfCoreRepository<IngredientOnStock,RestaurantContext>
+    public class EfCoreIngredientsRepository : EfCoreBaseRepository<IngredientOnStock, RestaurantContext>, IIngredientsRepository
     {
-        public EfCoreIngredientsRepository(RestaurantContext context):base(context)
+        public EfCoreIngredientsRepository(RestaurantContext context) : base(context)
         {
-            
+
         }
 
         public async Task<IngredientOnStock> GetByName(string name)

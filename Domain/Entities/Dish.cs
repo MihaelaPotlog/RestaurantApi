@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Domain.Entities;
 
 namespace Domain
@@ -12,7 +11,7 @@ namespace Domain
         public double Price { get; set; }
         public bool IsAvailable { get; set; }
         public List<OrderDish> DishOrders { get; set; }
-        public List<DishIngredient> Ingredients { get; set; }
+        public List<DishIngredient> DishIngredients { get; set; }
 
         private Dish()
         {
@@ -28,7 +27,7 @@ namespace Domain
                 Price = price,
                 IsAvailable = isAvailable,
                 DishOrders = new List<OrderDish>(),
-                Ingredients = new List<DishIngredient>()
+                DishIngredients = new List<DishIngredient>()
             };
         }
 

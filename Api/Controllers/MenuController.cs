@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Service;
+using Service.DTOs;
+using Service.DTOs.RequestDTOs;
 
 namespace Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class MenuController : ControllerBase
     {
         private readonly IDishesService _menuService;
@@ -21,30 +23,49 @@ namespace Api.Controllers
             _logger = logger;
             _menuService = menuService;
         }
-
-        [HttpGet]
-        public IActionResult GetMenu()
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IList<DishDto>>> GetDish(string id)
         {
-            // ...
-            return Ok();
+            return Ok(await _menuService.Get(id));
+        }
+        [HttpGet]
+        public async Task<ActionResult<IList<DishDto>>> GetMenu()
+        {
+            return Ok(await _menuService.GetAll());
         }
 
         [HttpPost]
-        public IActionResult AddDish()
+        public async Task<ActionResult> AddDish(CreateDishDto request)
+        {
+            var dish = await _menuService.Create(request);
+            Uri uri = new Uri($"http://localhost:5000/api/menu/{dish.Id}");
+            return Created(uri, dish);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDish(string id)
+        {
+            if (await _menuService.Delete(id) == true)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult UpdateDish(string id, ModifyDishDto request)
         {
             return Ok();
         }
 
-        [HttpDelete]
-        public IActionResult DeleteDish()
+        [HttpPut("{id}")]
+        public async Task<IActionResult> ReplaceDish(string id, ModifyDishDto request)
         {
-            return Ok();
-        }
-
-        [HttpPut]
-        public IActionResult UpdateDish()
-        {
-            return Ok();
+            await _menuService.Replace(id, request);
+            return NoContent();
         }
 
     }

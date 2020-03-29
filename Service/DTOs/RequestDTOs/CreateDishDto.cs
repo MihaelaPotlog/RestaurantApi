@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Service.DTOs.RequestDTOs
+{
+    public class CreateDishDto
+    {
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public Dictionary<Guid, double> DishIngredients { get; set; }
+    }
+}

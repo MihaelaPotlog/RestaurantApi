@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Service.DTOs
 {
     public class DishDto
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
+        public bool IsAvailable { get; set; }
         public Dictionary<string, int> Ingredients { get; set; }
     }
 }
