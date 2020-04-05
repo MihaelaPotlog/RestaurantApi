@@ -27,20 +27,20 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddAutoMapper(typeof(IDishesService));
+            services.AddAutoMapper(typeof(IMenuService));
             services.AddDbContext<RestaurantContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("RestaurantDatabase")));
 
             //injectare pentru controllerele care au obiecte de tipul ISomethingService
-            services.AddScoped<IDishesService, MenuService>();
-            services.AddScoped<IIngredientsService, StockService>();
+            services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped<IStockService, StockService>();
 
             // services.AddScoped<IRepository<Dish>,EfCoreDishRepository>();
             services.AddScoped<IIngredientsRepository, EfCoreIngredientsRepository>();
             services.AddScoped<IDishesRepository, EfCoreDishesRepository>();
             services.AddScoped<IDishIngredientsRepository, EfCoreDishIngredientsRepository>();
 
-            services.AddAutoMapper(typeof(IDishesService));
+            services.AddAutoMapper(typeof(IMenuService));
 
             services.AddMvc(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)

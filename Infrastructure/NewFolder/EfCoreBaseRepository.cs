@@ -25,7 +25,7 @@ namespace Infrastructure.NewFolder
             else
             {
                 _context.Set<T>().Remove(deletedEntity);
-                await _context.SaveChangesAsync();
+                // await _context.SaveChangesAsync();
                 return true;
             }
         }
@@ -33,7 +33,7 @@ namespace Infrastructure.NewFolder
         public async Task Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
+            // await _context.SaveChangesAsync();
         }
 
         public virtual async Task<T> Get(Guid id)
@@ -49,12 +49,12 @@ namespace Infrastructure.NewFolder
         public async Task Update(T entity)
         {
             _context.Update(entity);
-            await _context.SaveChangesAsync();
+            // await _context.SaveChangesAsync();
         }
         public async Task Add(T entity)
         {
             _context.Set<T>().Add(entity);
-            await _context.SaveChangesAsync();
+            // await _context.SaveChangesAsync();
         }
     }
 }

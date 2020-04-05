@@ -7,39 +7,43 @@ using Domain;
 using Domain.Interfaces;
 using Service.DTOs;
 using Service.DTOs.RequestDTOs;
+using Service.DTOs.ResponseDto;
 
 namespace Service
 {
-    public class MenuService : IDishesService
+    public class MenuService : IMenuService
     {
-        private readonly IDishesRepository _dishes;
-        private readonly IIngredientsRepository _ingredients;
-        private readonly IDishIngredientsRepository _dishIngredients;
+        private IUnitOfWork _unityOfWork;
+       
         private readonly IMapper _mapper;
 
 
-        public MenuService(IDishesRepository dishes, IIngredientsRepository ingredients, IDishIngredientsRepository dishIngredients, IMapper mapper)
+        public MenuService(IUnitOfWork unityOfWork, IMapper mapper)
         {
-            _dishes = dishes;
-            _ingredients = ingredients;
-            _dishIngredients = dishIngredients;
+            _unityOfWork = unityOfWork;
             _mapper = mapper;
         }
-        public async Task<Dish> Get(string id)
+        public async Task<IResponseDto> Get(string id)
         {
             Guid.TryParse(id, out Guid dishId);
-            return await _dishes.Get(dishId);
+            var searchedDish = await _unityOfWork.DishesRepository.Get(dishId);
+
+            if (searchedDish == null)
+                return ErrorResponseDto.Create(ErrorMessages.IdNotFound);
+
+            return SuccessResponseDto.Create(_mapper.Map<DishDto>(searchedDish));
         }
 
         public async Task<bool> Delete(string id)
         {
             Guid.TryParse(id, out Guid dishId);
-            
-            var dish = await _dishes.Get(dishId);
+
+            var dish = await _unityOfWork.DishesRepository.Get(dishId);
             if (dish != null)
             {
-                 await _dishes.Delete(dish);
-                 return true;
+                await _unityOfWork.DishesRepository.Delete(dish);
+                await _unityOfWork.CommitAsync();
+                return true;
             }
 
             return false;
@@ -58,15 +62,15 @@ namespace Service
         public async Task Replace(string id, ModifyDishDto request)
         {
             Guid.TryParse(id, out Guid dishId);
-            var dish = await  _dishes.Get(dishId);
+            var dish = await _unityOfWork.DishesRepository.Get(dishId);
             dish.Name = request.Name;
             dish.Price = request.Price;
             dish.DishIngredients.Clear();
-            
+
 
             foreach (var requestDishIngredient in request.DishIngredients)
             {
-                var ingredient = await _ingredients.Get(requestDishIngredient.Key);
+                var ingredient = await _unityOfWork.IngredientsRepository.Get(requestDishIngredient.Key);
                 var link = new DishIngredient()
                 {
                     Dish = dish,
@@ -74,18 +78,19 @@ namespace Service
                     Quantity = requestDishIngredient.Value
                 };
 
-                await _dishIngredients.Add(link);
+                await _unityOfWork.DishIngredientsRepository.Add(link);
             }
 
-            await _dishes.Update(dish);
+            await _unityOfWork.DishesRepository.Update(dish);
+            await _unityOfWork.CommitAsync();
         }
 
-        public async Task<List<DishDto>> GetAll()
+        public async Task<IResponseDto> GetAll()
         {
-            return _mapper.Map<List<DishDto>>(await _dishes.GetAll());
+            return SuccessResponseDto.Create(_mapper.Map<IList<DishDto>>(await _unityOfWork.DishesRepository.GetAll()));
         }
 
-        public async Task<DishDto> Create(CreateDishDto request)
+        public async Task<IResponseDto> Create(CreateDishDto request)
         {
             IDictionary<Guid, IngredientOnStock> usedIngredients = new Dictionary<Guid, IngredientOnStock>();
             bool isAvailable = true;
@@ -93,10 +98,10 @@ namespace Service
 
             while (dishIngredientsEnumerator.MoveNext() && isAvailable == true)
             {
-                
+
                 double quantity = dishIngredientsEnumerator.Current.Value;
 
-                var usedIngredient = await _ingredients.Get(dishIngredientsEnumerator.Current.Key);
+                var usedIngredient = await _unityOfWork.IngredientsRepository.Get(dishIngredientsEnumerator.Current.Key);
                 if (usedIngredient == null)
                     return null;
 
@@ -109,7 +114,7 @@ namespace Service
 
             Dish createdDish = Dish.Create(request.Name, request.Price, isAvailable);
             var id = createdDish.Id;
-            await _dishes.Add(createdDish);
+            await _unityOfWork.DishesRepository.Add(createdDish);
 
             dishIngredientsEnumerator = request.DishIngredients.GetEnumerator();
             while (dishIngredientsEnumerator.MoveNext())
@@ -120,12 +125,15 @@ namespace Service
                     Ingredient = usedIngredients[dishIngredientsEnumerator.Current.Key],
                     Quantity = dishIngredientsEnumerator.Current.Value
                 };
-                await _dishIngredients.Add(link);
+                await _unityOfWork.DishIngredientsRepository.Add(link);
                 Console.WriteLine(link);
             }
             dishIngredientsEnumerator.Dispose();
 
-            return _mapper.Map<DishDto>(createdDish);
+            await _unityOfWork.CommitAsync();
+
+            var dishDto = _mapper.Map<DishDto>(createdDish);
+            return SuccessResponseDto.Create(dishDto);
         }
     }
 }

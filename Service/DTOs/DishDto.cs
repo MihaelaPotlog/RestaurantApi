@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Service.DTOs.ResponseDto;
 
 namespace Service.DTOs
 {
-    public class DishDto
+    public class DishDto: IEntityDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

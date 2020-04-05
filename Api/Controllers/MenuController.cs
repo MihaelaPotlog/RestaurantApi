@@ -14,22 +14,25 @@ namespace Api.Controllers
     [Route("api/[controller]")]
     public class MenuController : ControllerBase
     {
-        private readonly IDishesService _menuService;
+        private readonly IMenuService _menuService;
 
         private readonly ILogger<MenuController> _logger;
 
-        public MenuController(ILogger<MenuController> logger, IDishesService menuService)
+        public MenuController(ILogger<MenuController> logger, IMenuService menuService)
         {
             _logger = logger;
             _menuService = menuService;
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<IList<DishDto>>> GetDish(string id)
+        public async Task<ActionResult> GetDish(string id)
         {
-            return Ok(await _menuService.Get(id));
+            var response = await _menuService.Get(id);
+            if(response.Succeeded == true)
+                return Ok(await _menuService.Get(id));
+            return NotFound(response);
         }
         [HttpGet]
-        public async Task<ActionResult<IList<DishDto>>> GetMenu()
+        public async Task<ActionResult> GetMenu()
         {
             return Ok(await _menuService.GetAll());
         }

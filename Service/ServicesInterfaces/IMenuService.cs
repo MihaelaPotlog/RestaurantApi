@@ -4,16 +4,17 @@ using System.Threading.Tasks;
 using Domain;
 using Service.DTOs;
 using Service.DTOs.RequestDTOs;
+using Service.DTOs.ResponseDto;
 
 namespace Service
 {
-    public interface IDishesService
+    public interface IMenuService
     {
-        Task<Dish> Get(string id);
+        Task<IResponseDto> Get(string id);
         Task<bool> Delete(string id);
-        Task<DishDto> Create(CreateDishDto request);
+        Task<IResponseDto> Create(CreateDishDto request);
         Task Modify(string id, ModifyDishDto dish);
         Task Replace(string id, ModifyDishDto request);
-        Task<List<DishDto>> GetAll();
+        Task<IResponseDto> GetAll();
     }
 }

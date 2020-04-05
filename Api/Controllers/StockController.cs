@@ -12,17 +12,17 @@ namespace Api.Controllers
     [ApiController]
     public class StockController : ControllerBase
     {
-        private readonly IIngredientsService _ingredientsService;
+        private readonly IStockService _stockService;
 
-        public StockController(IIngredientsService ingredientsService)
+        public StockController(IStockService stockService)
         {
-            _ingredientsService = ingredientsService;
+            _stockService = stockService;
         }
 
         [HttpGet("ingredients/{id}")]
         public async Task<ActionResult<IngredientOnStock>> Get(Guid id)
         {
-            IngredientOnStock searchedIngredient = await _ingredientsService.Get(id);
+            IngredientOnStock searchedIngredient = await _stockService.Get(id);
 
             if(searchedIngredient != null)
                 return Ok(searchedIngredient);
@@ -33,7 +33,7 @@ namespace Api.Controllers
         [HttpGet("ingredients")]
         public async Task<ActionResult<List<IngredientOnStock>>> GetAll()
         {
-            var all = await _ingredientsService.GetAll();
+            var all = await _stockService.GetAll();
             if (all != null)
                 return Ok(all);
             else

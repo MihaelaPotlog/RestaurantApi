@@ -5,7 +5,7 @@ using Domain;
 
 namespace Service
 {
-    public interface IIngredientsService
+    public interface IStockService
     {
         public Task<IngredientOnStock> Get(Guid id);
         public Task<IList<IngredientOnStock>> GetAll();

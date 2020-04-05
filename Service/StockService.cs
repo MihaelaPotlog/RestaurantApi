@@ -7,7 +7,7 @@ using Domain.Interfaces;
 
 namespace Service
 {
-    public class StockService:IIngredientsService
+    public class StockService:IStockService
     {
         private readonly IIngredientsRepository _ingredientsRepository;
         private readonly IMapper _mapper;
