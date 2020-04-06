@@ -34,6 +34,7 @@ namespace Api
             //injectare pentru controllerele care au obiecte de tipul ISomethingService
             services.AddScoped<IMenuService, MenuService>();
             services.AddScoped<IStockService, StockService>();
+            services.AddScoped<IOrdersService, OrdersService>();
 
             // services.AddScoped<IRepository<Dish>,EfCoreDishRepository>();
             services.AddScoped<IIngredientsRepository, EfCoreIngredientsRepository>();
@@ -41,6 +42,9 @@ namespace Api
             services.AddScoped<IDishIngredientsRepository, EfCoreDishIngredientsRepository>();
 
             services.AddAutoMapper(typeof(IMenuService));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
             services.AddMvc(option => option.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)

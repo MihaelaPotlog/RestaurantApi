@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Service;
 using Service.DTOs;
 using Service.DTOs.RequestDTOs;
+using Service.DTOs.ResponseDto;
 
 namespace Api.Controllers
 {
@@ -40,9 +42,15 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<ActionResult> AddDish(CreateDishDto request)
         {
-            var dish = await _menuService.Create(request);
-            Uri uri = new Uri($"http://localhost:5000/api/menu/{dish.Id}");
-            return Created(uri, dish);
+            var response = await _menuService.Create(request);
+            if (response.Succeeded == true)
+            {
+                
+                // Uri uri = new Uri($"http://localhost:5000/api/menu/{response.Entities[]}");
+                return Ok(response);
+            }
+            else return BadRequest();
+
         }
 
         [HttpDelete("{id}")]

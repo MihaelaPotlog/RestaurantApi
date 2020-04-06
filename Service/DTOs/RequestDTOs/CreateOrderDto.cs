@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Text;
+using Domain.Entities;
 
 namespace Service.DTOs.RequestDTOs
 {
@@ -9,6 +10,7 @@ namespace Service.DTOs.RequestDTOs
     {
         // public IDictionary<Guid, int> WantedDishes { get; set; }
         public IList<WantedDish> WantedDishes { get; set; }
+        public Adress Adress { get; set; }
 
         public class WantedDish
         {

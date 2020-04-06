@@ -17,9 +17,13 @@ namespace Infrastructure
         }
         public override async Task<Dish> Get(Guid id)
         {
+            // ce e asta ? de ce merge cu .Query? IQuerable e un tip returnat de linq methods? ce eeeee?
+
             var dish = await _context.Dishes.FindAsync(id);
             _context.Entry(dish).Collection(d => d.DishIngredients)
-                                .Load();
+                .Query()
+                .Include(dishIngredient => dishIngredient.Ingredient)
+                .Load();
             return dish;
         }
 

@@ -11,6 +11,8 @@ namespace Service
         IDishesRepository DishesRepository { get; }
         IIngredientsRepository IngredientsRepository { get; }
         IDishIngredientsRepository DishIngredientsRepository { get; }
+        IOrdersRepository OrdersRepository { get; }
+        IOrderDishesRepository OrderDishesRepository { get; }
         public void Commit();
         public Task CommitAsync();
     }

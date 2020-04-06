@@ -7,6 +7,7 @@ namespace Service.DTOs.ResponseDto
     public interface IResponseDto
     {
         public bool Succeeded { get; set; }
+        
     }
 }
 

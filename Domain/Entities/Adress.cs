@@ -5,11 +5,17 @@
         public string City { get; set; }
         public string Street { get; set; }
 
-        
-        public Adress(string city, string street)
+        private Adress()
         {
-            City = city;
-            Street = street;
+
+        }
+        public static Adress Create(string city, string street)
+        {
+            return new Adress()
+            {
+                City = city,
+                Street = street
+            };
         }
     }
 }
