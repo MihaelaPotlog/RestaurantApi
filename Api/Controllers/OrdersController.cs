@@ -30,14 +30,14 @@ namespace Api.Controllers
                 return BadRequest();
         }
 
-        // [HttpGet]
-        // public async Task<ActionResult> GetAll()
-        // {
-        //     // return Ok(await _ordersService.GetAll());
-        //     return Ok("GRRR");
-        // }
-
         [HttpGet]
+        public async Task<ActionResult> GetAll()
+        {
+            return Ok(await _ordersService.GetAll());
+            
+        }
+
+        [HttpGet("dates")]
         public ActionResult GetWithinDateInterval([FromQuery] DateTime startDate,[FromQuery] DateTime finishDate)
         {
             return Ok(_ordersService.GetAllWithinRange(startDate, finishDate));
